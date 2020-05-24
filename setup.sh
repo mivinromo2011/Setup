@@ -30,3 +30,8 @@ apt-get update
 apt-get install papirus-icon-theme
 
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+
+ln -s ~/CCNA ~/Desktop/
+ln -s ~/Courses ~/Desktop/
+ln -s ~/CTFs ~/Desktop/
+
