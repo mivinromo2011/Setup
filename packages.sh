@@ -21,4 +21,5 @@ apt install obs-studio -y
 add-apt-repository ppa:appimagelauncher-team/stable
 apt install appimagelauncher -y
 apt install docker.io -y
-apt install zsh
+apt install zsh -y
+apt install openvpn -y

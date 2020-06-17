@@ -108,5 +108,8 @@ alias update="sudo apt update -y && sudo apt upgrade"
 alias trash="sudo rm -rf"
 alias purge="sudo apt purge"
 alias remove="sudo apt remove"
+alias install="sudo apt install"
+alias htb="sudo openvpn mithun1612.ovpn"
+alias thm="sudo openvpn mithunx0x.ovpn"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
