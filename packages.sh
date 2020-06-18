@@ -9,7 +9,7 @@ apt install telegram-desktop -y
 apt install htop -y
 apt install vim -y
 apt install uget -y
-apt install tmux -y
+
 apt install timeshift -y
 add-apt-repository ppa:uget-team/ppa
 apt update
