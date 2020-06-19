@@ -105,7 +105,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias update="sudo apt update"
-alias upgradde="sudo apt upgrade -y"
+alias upgrade="sudo apt upgrade -y"
 alias trash="sudo rm -rf"
 alias purge="sudo apt purge"
 alias remove="sudo apt remove"
