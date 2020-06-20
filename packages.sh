@@ -22,3 +22,6 @@ add-apt-repository ppa:appimagelauncher-team/stable
 apt install appimagelauncher -y
 apt install zsh -y
 apt install openvpn -y
+curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update && sudo apt-get install spotify-client
