@@ -17,6 +17,6 @@ pacman -Sy arandr
 pacman -Sy flameshot
 pacman -Sy alsa-utils pulseaudio-bluetooth
 
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
+#git clone https://aur.archlinux.org/yay.git
+#cd yay
+#makepkg -si
