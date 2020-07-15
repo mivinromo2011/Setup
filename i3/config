@@ -17,8 +17,8 @@ font pango:monospace 13
 
 #gaps
 set $inner_gaps 7
-set $outer_gaps 7
-for_window [class="^.*"] border pixel 2
+set $outer_gaps 5
+for_window [class="^.*"] border pixel 1
 gaps inner $inner_gaps
 gaps outer $outer_gaps
 
@@ -38,7 +38,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+exec_always --no-startup-id nm-applet
+exec --no-startup-id blueman-tray
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -56,9 +57,9 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show run
-# There also is the (new) i3-dmenu-desktop which only displays applications
+# start dmenu (a program launcher)i
+bindsym $mod+d exec "rofi -combi-modi drun,find -show combi -icon-theme 'Moka' -show-icons find:~/.local/share/rofi/finder.sh" 
+# Tihere also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
@@ -116,10 +117,10 @@ bindsym $mod+a focus parent
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1: Brave"
-set $ws2 "2: Virtualbox"
+set $ws5 "5: Virtualbox"
 set $ws6 "6: Social"
 set $ws7 "7: Spotify"
-set $ws5 "5"
+set $ws2 "2: Notion"
 set $ws3 "3: Arena"
 set $ws4 "4: Arena2"
 set $ws8 "8: Bitwarden"
@@ -128,10 +129,10 @@ set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
+bindsym $mod+2 workspace number $ws2 
 bindsym $mod+3 workspace number $ws3
 bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
+bindsym $mod+5 workspace number $ws5 ; layout tabbed
 bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
@@ -184,44 +185,46 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 #Window Colors:
-set $bg_color #272822
-set $i_bg_color #75715E
+set $bg_color #333333
+set $i_bg_color #11999e
 set $textcolor    #ffffff
-set $urgcolor  #F92672 
+set $urgcolor  #f4f4f4
+set $border #6decb9
 
 #			Border		Background		text 		indicator
-client.focused		$bg_color	$bg_color		$textcolor	$bg_color
-client.unfocused 	$i_bg_color	$i_bg_color             $textcolor      $i_bg_color
-client.focused_inactive $i_bg_color	$i_bg_color             $textcolor      $i_bg_color
+client.focused		$i_bg_color	$i_bg_color		$textcolor	$i_bg_color
+client.unfocused 	$bg_color	$bg_color             $textcolor      $i_bg_color
+client.focused_inactive $bg_color	$bg_color             $textcolor      $i_bg_color
 client.urgent 		$urgcolor	$urgcolor		$textcolor	$urgcolor
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status -c ~/.config/i3status/i3status.conf
+	position top
+        status_command i3status --transparency -c ~/.config/i3status/i3status.conf
 	colors {
         background $bg_color
         statusline #ffffff
         separator #ffffff
 	#		   Border  BG     	 Text
-        focused_workspace  #ffffff #ffffff 	#000000
-        active_workspace   #333333 $i_bg_color 	#ffffff
-        inactive_workspace #333333 #5f676a 	#ffffff 
-        urgent_workspace   #2f343a #900000 	#ffffff
-        binding_mode       #2f343a #900000 	#ffffff
+        focused_workspace  #ffffff $i_bg_color 	#000000
+        active_workspace   $border #ffffff 	#000000
+        inactive_workspace $border $bg_color 	#ffffff 
+        urgent_workspace   $border #boder 	#000000
+        binding_mode       $i_bg_color $i_bd_color #000000
     }
 }
 
 
-exec_always feh --bg-fill ~/Pictures/Firefox_wallpaper.png
+exec_always feh --bg-fill ~/Pictures/wallpaper-final.png
 exec_always picom -f
 exec brave 
 exec spotify
 exec virtualbox 
-exec_always nm-applet
+
 
 #Assign Programs to Workspaces
 for_window [class="Spotify"] move to workspace $ws7
-for_window [class="VirtualBox Manager"] move to workspace $ws2
+for_window [class="VirtualBox Manager"] move to workspace $ws5
 #for_window [class="Brave-browser"] move to workspace $ws1
 for_window [class="Franz"] move to workspace $ws6
 for_window [class="Bitwarden"] move to workspace $ws8
@@ -229,9 +232,11 @@ for_window [class="TelegramDesktop"] move to workspace $ws6
 
 #Assigning workspaces to screens
 workspace $ws1 output Primary
-workspace $ws4 output eDP-1
+workspace $ws4 output Primary
 workspace $ws2 output Primary
 Workspace $ws3 output Primary
+Workspace $ws8 output eDP1
+Workspace $ws5 output edp1  
 
 #My key Binds
 bindsym $mod+z exec flameshot gui
@@ -242,22 +247,47 @@ bindsym $mod+Shift+b exec chromium
 bindsym $mod+Shift+z exec bitwarden
 bindsym $mod+b exec brave
 bindsym $mod+v exec virtualbox
-#Media Controls
-bindsym $mod+Ctrl+p exec playerctl play-pause
-bindsym $mod+Ctrl+d exec playerctl next
-bindsym $mod+Ctrl+a exec playerctl previous
+bindsym $mod+Shift+x exec spotify
+
+#Screen Lock
 bindsym $mod+Ctrl+l exec dm-tool lock
 
 #Display workspace move
-bindsym $mod+Ctrl+1 move workspace to output HDMI-1
-bindsym $mod+Ctrl+2 move workspace to output eDP-1
+bindsym $mod+Ctrl+1 move workspace to output HDMI1
+bindsym $mod+Ctrl+2 move workspace to output eDP1
 
 # Sreen brightness controls
-bindsym $mod2+w exec xbacklight -inc 20 # increase screen brightness
-bindsym $mod2+s exec xbacklight -dec 20 # decrease screen brightness
+bindsym $mod2+Ctrl+w exec xbacklight -inc 20 # increase screen brightness
+bindsym $mod2+Ctrl+s exec xbacklight -dec 20 # decrease screen brightness
 
 #gaps
 bindsym $mod+i			gaps inner current plus 5
 bindsym $mod+Shift+i		gaps inner current minus 5
 bindsym $mod+o			gaps outer current plus 5
 bindsym $mod+Shift+o		gaps outer current minus 5
+
+#Brightness
+bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15
+bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15
+
+#Screen Layout Switch
+bindsym $mod+Shift+p exec ~/.screenlayout/myhomescreen.sh
+
+#audio
+bindsym $mod2+w exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym $mod2+s exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym $mod2+Shift+s exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+#Media
+bindsym $mod2+z exec playerctl play-pause
+bindsym $mod2+d exec playerctl next
+bindsym $mod2+a exec playerctl previous
+
+#window rules
+for_window [class="Galculator"] floating enable
+for_window [class="VirtualBox Manager"] tabbed enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="feh"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [title="Notion*"] move to workspace $ws2
