@@ -116,16 +116,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: Brave"
-set $ws5 "5: Virtualbox"
-set $ws6 "6: Social"
-set $ws7 "7: Spotify"
+set $ws1 "1:  Arena"
 set $ws2 "2: Notion"
-set $ws3 "3: Arena"
-set $ws4 "4: Arena2"
-set $ws8 "8: Bitwarden"
-set $ws9 "9"
-set $ws10 "10"
+set $ws3 "3:卵 Arena2"
+set $ws4 "4: Virtualbox"
+set $ws5 "5:﵁ Dashboard"
+set $ws6 "6: Social"
+set $ws7 "7:ﲃ"
+set $ws8 "8:ﲃ"
+set $ws9 "9: Bitwarden"
+set $ws10 "10: Spotify"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -185,17 +185,17 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 #Window Colors:
-set $bg_color #333333
+set $bg_color 	#333333
 set $i_bg_color #11999e
-set $textcolor    #ffffff
-set $urgcolor  #f4f4f4
-set $border #6decb9
+set $textcolor  #ffffff
+set $urgcolor  	#f4f4f4
+set $border 	#6decb9
 
 #			Border		Background		text 		indicator
-client.focused		$i_bg_color	$i_bg_color		$textcolor	$i_bg_color
+client.focused		$i_bg_color	$i_bg_color	      $textcolor	$i_bg_color
 client.unfocused 	$bg_color	$bg_color             $textcolor      $i_bg_color
 client.focused_inactive $bg_color	$bg_color             $textcolor      $i_bg_color
-client.urgent 		$urgcolor	$urgcolor		$textcolor	$urgcolor
+client.urgent 		$urgcolor	$urgcolor	      $textcolor	$urgcolor
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -205,38 +205,43 @@ bar {
         background $bg_color
         statusline #ffffff
         separator #ffffff
-	#		   Border  BG     	 Text
-        focused_workspace  #ffffff $i_bg_color 	#000000
-        active_workspace   $border #ffffff 	#000000
-        inactive_workspace $border $bg_color 	#ffffff 
-        urgent_workspace   $border #boder 	#000000
-        binding_mode       $i_bg_color $i_bd_color #000000
+	#		   Border 	 BG     	 Text
+        focused_workspace  #ffffff 	$i_bg_color 	#000000
+        active_workspace   $border 	#ffffff 	#000000
+        inactive_workspace $border 	$bg_color 	#ffffff 
+        urgent_workspace   $border 	#boder 		#000000
+        binding_mode       $i_bg_color 	$i_bd_color 	#000000
     }
 }
 
 
-exec_always feh --bg-fill ~/Pictures/wallpaper-final.png
+
+#AutoStart Programs
+exec_always feh --bg-fill ~/Pictures/wallpaper-final.jpg
 exec_always picom -f
 exec brave 
 exec spotify
-exec virtualbox 
+exec virtualbox
+exec bitwarden 
 
 
 #Assign Programs to Workspaces
-for_window [class="Spotify"] move to workspace $ws7
-for_window [class="VirtualBox Manager"] move to workspace $ws5
-#for_window [class="Brave-browser"] move to workspace $ws1
+for_window [class="Spotify"] move to workspace $ws10
+for_window [class="VirtualBox Manager"] move to workspace $ws4
+
 for_window [class="Franz"] move to workspace $ws6
-for_window [class="Bitwarden"] move to workspace $ws8
+for_window [class="Bitwarden"] move to workspace $ws9
 for_window [class="TelegramDesktop"] move to workspace $ws6
 
 #Assigning workspaces to screens
 workspace $ws1 output Primary
-workspace $ws4 output Primary
 workspace $ws2 output Primary
 Workspace $ws3 output Primary
-Workspace $ws8 output eDP1
-Workspace $ws5 output edp1  
+workspace $ws4 output Primary
+Workspace $ws5 output eDP1  
+Workspace $ws6 output eDP1
+Workspace $ws9 output eDP1
+Workspace $ws10 output eDP1
 
 #My key Binds
 bindsym $mod+z exec flameshot gui
