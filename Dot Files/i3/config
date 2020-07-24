@@ -23,7 +23,7 @@ gaps inner $inner_gaps
 gaps outer $outer_gaps
 
 #Window switch
-bindsym $mod+Tab exec rofi -show window
+bindsym $mod+Tab exec rofi -show window -lines 5 -eh 2 -bw 2 -font "Open Sans 13" -show-icons -icon-theme="Arc"
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -44,10 +44,10 @@ exec_alway Caffeine-ng
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+10 i3blocks
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -59,8 +59,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec "rofi -show drun -icon-theme 'Moka' -show-icons"
-bindsym $mod+q exec "rofi  -show find -modi find:~/.local/share/rofi/finder.sh"
+bindsym $mod+d exec "rofi -show drun -lines 5 -eh 2 -bw 2 -font 'Open Sans 13' -icon-theme 'Arc' -show-icons" 
+bindsym $mod+q exec "rofi  -show find  -lines 5 -eh 2 -bw 2 -font 'Open Sans 13' -icon-theme 'Arc' -show-icons -modi find:~/.local/share/rofi/finder.sh" 
 # Tihere also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -108,7 +108,7 @@ bindsym $mod+Shift+s layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod2+Tab focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -118,16 +118,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: Arena"
-set $ws2 "2: Notion"
-set $ws3 "3:卵 Arena2"
-set $ws4 "4: Virtualbox"
-set $ws5 "5:舘 Dashboard"
-set $ws6 "6: Social"
-set $ws7 "7: Workshop1"
-set $ws8 "8: Workshop2"
-set $ws9 "9: Bitwarden"
-set $ws10 "10: Spotify"
+set $ws1 "1:🏈"
+set $ws2 "2:📑"
+set $ws3 "3:🏉"
+set $ws4 "4:💻"
+set $ws5 "5:📡"
+set $ws6 "6:💬"
+set $ws7 "7:🔧"
+set $ws8 "8:🔨"
+set $ws9 "9:🔐"
+set $ws10 "10:🎧"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -187,12 +187,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 #Window Colors:
-set $bg_color 	#333333
-set $i_bg_color #11999e
-set $textcolor  #ffffff
-set $urgcolor  	#f4f4f4
-set $border 	#6decb9
-
+set $bg_color 	        #303642
+set $bg_color_bar 	#303642
+set $i_bg_color         #5294E2
+set $textcolor          #F5F6F7
+set $urgcolor  	        #CC575D
+set $border 	        #F5F6F7
+set $ac_ws              #7c818c
 #			Border		Background		text 		indicator
 client.focused		$i_bg_color	$i_bg_color	      $textcolor	$i_bg_color
 client.unfocused 	$bg_color	$bg_color             $textcolor      $i_bg_color
@@ -202,16 +203,15 @@ client.urgent 		$urgcolor	$urgcolor	      $textcolor	$urgcolor
 # finds out, if available)
 bar {
 	position top
-	tray_output primary
-	tray_padding 2 
-        status_command i3status -c ~/.config/i3status/i3status.conf
+	tray_output none
+	status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
 	colors {
-        background $bg_color
-        statusline #ffffff
-        separator #ffffff
+        background $bg_color_bar
+        statusline #F5F6F7
+        separator #F5F6F7
 	#		   Border 	 BG     	 Text
-        focused_workspace  #ffffff 	$i_bg_color 	#000000
-        active_workspace   $border 	#ffffff 	#000000
+        focused_workspace  #ffffff 	$i_bg_color  	#ffffff
+        active_workspace   $border 	$ac_ws  	#ffffff
         inactive_workspace $border 	$bg_color 	#ffffff 
         urgent_workspace   $border 	#boder 		#000000
         binding_mode       $i_bg_color 	$i_bd_color 	#000000
@@ -221,19 +221,19 @@ bar {
 
 
 #AutoStart Programs
-exec_always feh --bg-fill ~/Pictures/wall.png
+exec_always feh --bg-fill ~/Pictures/waal.png
 exec_always picom -f
-exec brave 
+#exec brave 
 exec spotify
 exec virtualbox
 exec bitwarden 
-exec franz
+#exec franz
 
 #Assign Programs to Workspaces
 for_window [class="Spotify"] move to workspace $ws10
 for_window [class="VirtualBox Manager"] move to workspace $ws4
 
-for_window [class="Franz"] move to workspace $ws6
+#for_window [class="Franz"] move to workspace $ws6
 for_window [class="Bitwarden"] move to workspace $ws9
 for_window [class="TelegramDesktop"] move to workspace $ws6
 
@@ -249,15 +249,16 @@ Workspace $ws9 output eDP1
 Workspace $ws10 output eDP1
 
 #My key Binds
-bindsym $mod+z exec flameshot gui
-bindsym $mod+x exec terminator
-bindsym $mod+e exec pcmanfm
-bindsym $mod+p exec arandr
-bindsym $mod+Shift+b exec chromium
-bindsym $mod+Shift+z exec bitwarden
-bindsym $mod+b exec brave
-bindsym $mod+v exec virtualbox
-bindsym $mod+Shift+x exec spotify
+bindsym $mod+z          exec flameshot gui
+bindsym $mod+x          exec terminator
+bindsym $mod+e          exec thunar
+bindsym $mod+p          exec arandr
+bindsym $mod+Shift+b    exec chromium
+bindsym $mod+Shift+z    exec bitwarden
+bindsym $mod+b          exec brave
+bindsym $mod+v          exec virtualbox
+bindsym $mod+Shift+x    exec spotify
+bindsym $mod2+v         exec pavucontrol
 
 #Screen Lock
 bindsym $mod+Ctrl+l exec dm-tool lock
@@ -277,31 +278,36 @@ bindsym $mod+o			gaps outer current plus 5
 bindsym $mod+Shift+o		gaps outer current minus 5
 
 #Brightness
-bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15
-bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15
+bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 10
+bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 10
 
 #Screen Layout Switch
-#bindsym $mod+Shift+p exec ~/.screenlayout/myhomescreen.sh
+#bindsym $mod2+Ctrl+q exec "xrandr --output eDP1 --mode 192x1080 --pos 0x1080 --rotate normal --output DP1 --off --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off" 
 
 #audio
-bindsym $mod2+w exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym $mod2+s exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym $mod2+Shift+s exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym $mod2+w                 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 i3blocks
+bindsym $mod2+s                 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 i3blocks
+bindsym $mod2+Shift+s           exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks
+#bindsym XF86AudioMicMute       exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+10 i3blocks
 
 #Media
-bindsym $mod2+z exec playerctl play-pause
-bindsym $mod2+d exec playerctl next
-bindsym $mod2+a exec playerctl previous
+bindsym $mod2+z exec playerctl play-pause && pkill -RTMIN+11 i3blocks
+bindsym $mod2+d exec playerctl next && pkill -RTMIN+11 i3blocks
+bindsym $mod2+a exec playerctl previous && pkill -RTMIN+11 i3blocks
 
 #window rules
 for_window [class="Galculator"] floating enable
-for_window [class="VirtualBox Manager"] tabbed enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="feh"] floating enable
+for_window [class="Pavucontrol"] floating enable resize 800 600
+for_window [class="feh"] floating enable 
 for_window [class="Lxappearance"] floating enable
 for_window [title="Notion*"] move to workspace $ws2
 for_window [class="Evince"] floating enable
-for_window [class="Viewnior"] floating enable
-for_window [class="Terminator"] floating enable resize set 1240 720
-for_window [class="Pcmanfm"] floating enable resize set 1240 720
+for_window [class="Viewnior"] floating enable resize 800 600
+for_window [class="Thunar"] floating enable resize 1024 720
+for_window [class="stegsolve-StegSolve"] floating enable
+for_window [title="LMS*"] move to workspace $ws2
+for_window [title="VirtualBox"] tabbed enable
+for_window [class="Uget-gtk"] floating enable resize 800 600
+for_window [class="Gucharmap"] floating enable resize 800 600
+for_window [class="Arandr"] floating enable resize 800 600
+for_window [class="Nm-connection-editor"] floating enable resize 226 126
