@@ -18,7 +18,7 @@ font pango:Open Sans 13
 #gaps
 set $inner_gaps 7
 set $outer_gaps 5
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 0
 gaps inner $inner_gaps
 gaps outer $outer_gaps
 
@@ -38,9 +38,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec_always --no-startup-id nm-applet
-exec --no-startup-id blueman-tray
-exec_alway Caffeine-ng
+
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -56,11 +54,11 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod2+Space exec "rofi -show drun -lines 5 -eh 2 -bw 2 -font 'Open Sans 13' -icon-theme 'Arc' -show-icons" 
-bindsym $mod2+Shift+Space exec "rofi  -show find  -lines 5 -eh 2 -bw 2 -font 'Open Sans 13' -icon-theme 'Arc' -show-icons -modi find:~/.local/share/rofi/finder.sh" 
+bindsym $mod2+e exec "rofi -show drun -lines 5 -eh 2 -bw 2 -font 'Open Sans 13' -icon-theme 'Arc' -show-icons" 
+bindsym $mod2+q exec "rofi  -show find  -lines 5 -eh 2 -bw 2 -font 'Open Sans 13' -icon-theme 'Arc' -show-icons -modi find:~/.local/share/rofi/finder.sh" 
 # Tihere also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -118,28 +116,35 @@ bindsym $mod2+Tab focus mode_toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:🏈"
-set $ws2 "2:📑"
-set $ws3 "3:🏉"
-set $ws4 "4:💻"
-set $ws5 "5:🔧"
-set $ws6 "6:📡"
-set $ws7 "7:💬"
-set $ws8 "8:🔨"
-set $ws9 "9:🔐"
-set $ws10 "10:🎧"
+#Screen1
+set $ws1 "1:  "
+set $ws2 "2:  "
+set $ws3 "3: ﬏ "
+set $ws4 "4:  "
+set $ws5 "5:  "
+
+
+#Screen2
+set $ws6 "6: 舘 "
+set $ws7 "7:  "
+set $ws8 "8:  "
+set $ws9 "9:  "
+set $ws10 "10:  "
+
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2 
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4 ; layout tabbed
-bindsym $mod+5 workspace number $ws5 
+bindsym $mod+3 workspace number $ws3 
+bindsym $mod+4 workspace number $ws4  ; layout tabbed
+bindsym $mod+5 workspace number $ws5
+ 
 bindsym $mod2+1 workspace number $ws6
-bindsym $mod2+2 workspace number $ws7
+bindsym $mod2+2 workspace number $ws7 ; layout tabbed
 bindsym $mod2+3 workspace number $ws8
 bindsym $mod2+4 workspace number $ws9
-bindsym $mod2+5 workspace number $ws10
+bindsym $mod2+5 workspace number $ws10 
+
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -147,11 +152,13 @@ bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
+
 bindsym $mod2+Shift+1 move container to workspace number $ws6
 bindsym $mod2+Shift+2 move container to workspace number $ws7
 bindsym $mod2+Shift+3 move container to workspace number $ws8
 bindsym $mod2+Shift+4 move container to workspace number $ws9
 bindsym $mod2+Shift+5 move container to workspace number $ws10
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -202,52 +209,53 @@ client.urgent 		$urgcolor	$urgcolor	      $textcolor	$urgcolor
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	position top
+        
+        position top
+        font pango:Roboto 14
+        #status_command i3status
+	#position top
 	tray_output none
 	status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
 	colors {
-        background $bg_color_bar
-        statusline #F5F6F7
-        separator #F5F6F7
+                background      $bg_color
+                statusline      #F5F6F7
+                separator       #F5F6F7
 	#		   Border 	 BG     	 Text
-        focused_workspace  #ffffff 	$i_bg_color  	#ffffff
-        active_workspace   $border 	$ac_ws  	#ffffff
-        inactive_workspace $border 	$bg_color 	#ffffff 
-        urgent_workspace   $border 	#boder 		#000000
+        focused_workspace  #CC575D 	#CC575D 	#ffffff
+        active_workspace   $ac_ws 	$ac_ws  	#ffffff
+        inactive_workspace #0080ff	#0080ff   	#ffffff 
+        urgent_workspace   #5294E2 	#5294E2 	#000000
         binding_mode       $i_bg_color 	$i_bd_color 	#000000
-    }
+     }
 }
 
 
-
 #AutoStart Programs
-exec_always feh --bg-fill ~/Pictures/waal.png
+exec_always feh --bg-scale ~/Pictures/4.png
 exec_always picom -f
+#exec_always xfce4-panel
 #exec brave 
 #exec spotify
 #exec virtualbox
-exec bitwarden 
-#exec franz
+exec bitwarden
 
-#Assign Programs to Workspaces
-for_window [class="Spotify"] move to workspace $ws10
-for_window [class="VirtualBox Manager"] move to workspace $ws4
 
-#for_window [class="Franz"] move to workspace $ws6
-for_window [class="Bitwarden"] move to workspace $ws9
-for_window [class="TelegramDesktop"] move to workspace $ws7
+
+
 
 #Assigning workspaces to screens
 workspace $ws1 output Primary
 workspace $ws2 output Primary
 Workspace $ws3 output Primary
 workspace $ws4 output Primary
-Workspace $ws5 output Primary  
+Workspace $ws5 output Primary
+ 
 Workspace $ws6 output eDP1
 Workspace $ws7 output eDP1
 Workspace $ws8 output eDP1
 Workspace $ws9 output eDP1
 Workspace $ws10 output eDP1
+
 
 #My key Binds
 bindsym $mod+z          exec flameshot gui
@@ -257,11 +265,15 @@ bindsym $mod+p          exec arandr
 bindsym $mod+Shift+b    exec chromium
 bindsym $mod+Shift+z    exec bitwarden
 bindsym $mod+b          exec brave
-bindsym $mod+v          exec virtualbox
+bindsym $mod+v          exec virtualbox -style kvantum-dark U%
 bindsym $mod+Shift+x    exec spotify
 bindsym $mod2+v         exec pavucontrol
-bindsym $mod2+n         exec nm-connection-editor
+bindsym $mod2+n         exec --no-startup-id terminator -T "__nmtui" -e "nmtui"
 bindsym $mod2+b         exec blueman-manager
+bindsym $mod+c          exec code
+bindsym $mod2+k         exec vboxmanage startvm eb405c75-b7ea-4d0d-9ad6-04021bade111
+bindsym $mod2+p         exec vboxmanage startvm 93c97b20-1b4f-4eee-a332-4ef9d3a5b03d
+bindsym $mod2+Shift+p   exec vboxmanage startvm ccca3290-94f1-4390-89d2-678f68ebabe4
 
 #Screen Lock
 bindsym $mod+Ctrl+l exec dm-tool lock
@@ -271,8 +283,8 @@ bindsym $mod+Ctrl+1 move workspace to output HDMI1
 bindsym $mod+Ctrl+2 move workspace to output eDP1
 
 # Sreen brightness controls
-bindsym $mod2+Ctrl+w exec xbacklight -inc 20 # increase screen brightness
-bindsym $mod2+Ctrl+s exec xbacklight -dec 20 # decrease screen brightness
+bindsym $mod2+Ctrl+w exec xbacklight -inc 5 # increase screen brightness
+bindsym $mod2+Ctrl+s exec xbacklight -dec 5 # decrease screen brightness
 
 #gaps
 bindsym $mod+i			gaps inner current plus 5
@@ -315,3 +327,12 @@ for_window [class="Gucharmap"] floating enable resize 800 600
 for_window [class="Arandr"] floating enable resize 800 600
 for_window [class="Nm-connection-editor"] floating enable resize 226 126
 for_window [class="Blueman-manager"] floating enable resize 226 126
+for_window [class="code-oss"] move to workspace $ws3
+for_window [class="libreoffice-startcenter"] move to workspace $ws8
+for_window [class="Bitwarden"] move to workspace $ws9
+for_window [class="TelegramDesktop"] move to workspace $ws7
+for_window [class="Spotify"] move to workspace $ws10
+for_window [class="VirtualBox Manager"] move to workspace $ws4
+for_window [class="Franz"] move to workspace $ws7
+for_window [class="discord"] move to workspace $ws7
+#for_window [class="VirtualBox Machine"] move to workspace $ws4
