@@ -1,0 +1,7 @@
+#81c995 --> green
+#fdd633 --> yellow
+#f28b82 --> red
+#8ab4f8 --> blue
+#383838 --> titlebar background
+#1f1f1f --> dark bg
+#303030 --> dark bg alternate
