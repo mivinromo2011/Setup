@@ -1,0 +1,5 @@
+94:65:2d:2e:1d:37 -> mom phone
+f2:f2:31:6c:1f:9d -> my phone
+a8:6d:aa:9b:8e:62 -> my laptop
+b8:27:eb:6f:b7:85 -> Raspi
+F8:2D:7C:77:ED:AF -> Haridhu Iphone
