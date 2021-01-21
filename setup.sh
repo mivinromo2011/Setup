@@ -26,9 +26,12 @@ ln -s /home/mivin/dotfiles/autorandr /home/mivin/.config/autorandr
 ln -s /home/mivin/dotfiles/tint2 /home/mivin/.config/tint2
 ln -s /home/mivin/dotfiles/obs-studio /home/mivin/.config/obs-studio
 ln -s /home/mivin/dotfiles/pcmanfm /home/mivin/.config/pcmanfm
+ln -s /home/mivin/dotfiles/.zshrc /home/mivin/.zshrc
 
 #aur
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 
 yay -S --needed - </home/mivin/Setup/packages.txt
+
+
