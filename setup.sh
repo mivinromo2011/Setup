@@ -8,23 +8,13 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting &&
 #configuration
 rm /home/mivin/.zshrc &&
-mkdir .config &&
-mkdir .config/picom &&
-ln -s /home/mivin/dotfiles/i3 /home/mivin/.config/i3 &&
-ln -s /home/mivin/dotfiles/openbox /home/mivin/.config/openbox &&
-ln -s /home/mivin/dotfiles/rofi /home/mivin/.config/rofi &&
 ln -s /home/mivin/dotfiles/terminator /home/mivin/.config/terminator &&
-ln -s /home/mivin/dotfiles/picom.conf /home/mivin/.config/picom/ &&
 ln -s /home/mivin/dotfiles/flameshot /home/mivin/.config/flameshot &&
-ln -s /home/mivin/dotfiles/i3blocks /home/mivin/.config/i3blocks &&
-ln -s /home/mivin/dotfiles/qt5ct /home/mivin/.config/qt5ct &&
-ln -s /home/mivin/dotfiles/autorandr /home/mivin/.config/autorandr &&
-ln -s /home/mivin/dotfiles/tint2 /home/mivin/.config/tint2 &&
 ln -s /home/mivin/dotfiles/.zshrc /home/mivin/.zshrc &&
+ln -s /home/mivin/dotfiles/sublime-text-3/Packages /home/mivin/.config/sublime-text-3/ &&
 #aur
-git clone https://aur.archlinux.org/yay.git &&
-cd yay && makepkg -si &&
-yay -S --needed - </home/mivin/Setup/packages.txt;
+git clone https://aur.archlinux.org/paru.git &&
+cd paru && makepkg -si &&
 #git-config
 git config --global user.name "mivinromo2011" &&
 git config --global user.email "mithun.rosinth2011@protonmail.com" &&
